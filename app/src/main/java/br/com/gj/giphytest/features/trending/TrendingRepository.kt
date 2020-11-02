@@ -1,9 +1,9 @@
 package br.com.gj.giphytest.features.trending
 
-class TrendingRepository {
+class TrendingRepository(
+    private val remoteDataSource: TrendingRemoteDataSource
+) {
 
-    fun fetchTrendingGifsUseCase() {
-        // TODO: call dataSource
-    }
+    fun fetchTrendingGifList() = remoteDataSource.fetchTrendingGifList()
 
 }

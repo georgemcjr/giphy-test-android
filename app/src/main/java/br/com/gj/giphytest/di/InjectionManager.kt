@@ -1,6 +1,9 @@
 package br.com.gj.giphytest.di
 
 import android.app.Application
+import br.com.gj.giphytest.Api
+import br.com.gj.giphytest.network.NetworkProvider
+import br.com.gj.giphytest.features.trending.TrendingRemoteDataSource
 import br.com.gj.giphytest.features.trending.TrendingRepository
 import br.com.gj.giphytest.features.trending.TrendingViewModel
 import org.koin.android.ext.koin.androidContext
@@ -15,7 +18,9 @@ object InjectionManager {
             androidContext(application)
             modules(
                 viewModelModule,
-                repositoryModule
+                repositoryModule,
+                dataSourceModule,
+                networkModule
             )
         }
     }
@@ -25,7 +30,17 @@ object InjectionManager {
     }
 
     private val repositoryModule = module {
-        factory { TrendingRepository() }
+        factory { TrendingRepository(get()) }
+    }
+
+    private val dataSourceModule = module {
+        factory { TrendingRemoteDataSource(get()) }
+    }
+
+    private val networkModule = module {
+        single { NetworkProvider.provideOkHttpClient() }
+
+        single<Api> { NetworkProvider.provideRetrofit(get()) }
     }
 
 }
