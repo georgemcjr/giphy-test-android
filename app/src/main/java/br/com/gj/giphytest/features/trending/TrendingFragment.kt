@@ -8,8 +8,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
 import kotlinx.android.synthetic.main.fragment_trending.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class TrendingFragment : Fragment() {
+
+    private val viewModel: TrendingViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,6 +23,18 @@ class TrendingFragment : Fragment() {
         setupRecyclerView()
 
         return view
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setupObservers()
+
+        viewModel.fetchTrendingGifs()
+    }
+
+    private fun setupObservers() {
+        // TODO setup livedata observers
     }
 
     private fun setupRecyclerView() {
