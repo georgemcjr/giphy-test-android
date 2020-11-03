@@ -47,7 +47,7 @@ class TrendingViewModel(
 }
 
 sealed class State {
-    class Success<T>(val content: T) : State()
+    class Success<out T>(val content: T) : State()
     class Error(val error: Throwable) : State()
     object Loading : State()
 }

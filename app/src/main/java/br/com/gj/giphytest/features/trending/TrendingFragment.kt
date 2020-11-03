@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
+import br.com.gj.giphytest.model.TrendingItem
 import kotlinx.android.synthetic.main.fragment_trending.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -15,19 +16,19 @@ class TrendingFragment : Fragment() {
 
     private val viewModel: TrendingViewModel by viewModel()
 
+    private val adapter by lazy { TrendingAdapter() }
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_trending, container, false)
-        return view
+        return inflater.inflate(R.layout.fragment_trending, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         setupRecyclerView()
-
         setupObservers()
 
         viewModel.fetchTrendingGifs()
@@ -42,6 +43,7 @@ class TrendingFragment : Fragment() {
                 }
                 is State.Success<*> -> {
                     Log.d(">>>> New state", "Success: ${state.content}")
+                    loadTrendingItems(state)
                 }
                 is State.Error -> {
                     // TODO handle error state
@@ -49,6 +51,12 @@ class TrendingFragment : Fragment() {
                 }
             }
         })
+    }
+
+    private fun loadTrendingItems(state: State.Success<*>) {
+        val content = state.content as? List<TrendingItem> // TODO remote this warning
+        adapter.submitList(content)
+        recyclerView_trending.adapter = adapter
     }
 
     private fun setupRecyclerView() {
