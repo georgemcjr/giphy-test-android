@@ -1,6 +1,7 @@
 package br.com.gj.giphytest.features.trending
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,7 +34,21 @@ class TrendingFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        // TODO setup livedata observers
+        viewModel.gifListLiveData.observe(viewLifecycleOwner, { state ->
+            when (state) {
+                is State.Loading -> {
+                    // TODO handle loading state
+                    Log.d(">>>> New state", "Loading")
+                }
+                is State.Success<*> -> {
+                    Log.d(">>>> New state", "Success: ${state.content}")
+                }
+                is State.Error -> {
+                    // TODO handle error state
+                    Log.d(">>>> New state", "Error: ${state.error}")
+                }
+            }
+        })
     }
 
     private fun setupRecyclerView() {
