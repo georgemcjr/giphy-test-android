@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
+import br.com.gj.giphytest.model.State
 import br.com.gj.giphytest.model.TrendingItem
 import kotlinx.android.synthetic.main.fragment_trending.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -42,8 +43,8 @@ class TrendingFragment : Fragment() {
                     Log.d(">>>> New state", "Loading")
                 }
                 is State.Success<*> -> {
-                    Log.d(">>>> New state", "Success: ${state.content}")
-                    loadTrendingItems(state)
+                    Log.d(">>>> New state", "Success: ${state.safeContent<List<TrendingItem>>()}")
+                    loadTrendingItems(state.safeContent())
                 }
                 is State.Error -> {
                     // TODO handle error state
@@ -53,9 +54,8 @@ class TrendingFragment : Fragment() {
         })
     }
 
-    private fun loadTrendingItems(state: State.Success<*>) {
-        val content = state.content as? List<TrendingItem> // TODO remote this warning
-        adapter.submitList(content)
+    private fun loadTrendingItems(trendingItemList: List<TrendingItem>) {
+        adapter.submitList(trendingItemList)
         recyclerView_trending.adapter = adapter
     }
 

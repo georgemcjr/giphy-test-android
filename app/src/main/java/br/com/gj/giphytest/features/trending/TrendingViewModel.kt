@@ -4,6 +4,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import br.com.gj.giphytest.model.State
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -21,6 +22,8 @@ class TrendingViewModel(
         get() = _gifListLiveData
 
     fun fetchTrendingGifs() {
+        // TODO put this fetch business logic in the Repository (or UseCase)
+        //  see: https://developer.android.com/jetpack/guide#fetch-data
         val disposable = trendingRepository.fetchTrendingGifList()
             .subscribeOn(Schedulers.io()) // TODO: add schedulers via DI
             .observeOn(AndroidSchedulers.mainThread())
@@ -45,11 +48,3 @@ class TrendingViewModel(
         super.onCleared()
     }
 }
-
-sealed class State {
-    class Success<out T>(val content: T) : State()
-    class Error(val error: Throwable) : State()
-    object Loading : State()
-}
-
-

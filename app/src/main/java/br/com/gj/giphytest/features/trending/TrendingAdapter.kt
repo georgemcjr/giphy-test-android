@@ -38,7 +38,15 @@ class TrendingAdapter :
     inner class TrendingItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: TrendingItem?) {
             if (item != null) {
+                // TODO animate loading gif
                 itemView.imageView_cell.loadFromUrl(item.gifUrl)
+                itemView.button_favorite.setOnCheckedChangeListener { _, isChecked ->
+                    if (isChecked) {
+                        // TODO remove from favorites
+                    } else {
+                        // TODO add to favorites
+                    }
+                }
             }
         }
     }
