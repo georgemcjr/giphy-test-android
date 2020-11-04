@@ -2,10 +2,10 @@ package br.com.gj.giphytest.di
 
 import android.app.Application
 import br.com.gj.giphytest.Api
-import br.com.gj.giphytest.network.NetworkProvider
+import br.com.gj.giphytest.features.trending.GetTrendingGifsUseCase
 import br.com.gj.giphytest.features.trending.TrendingRemoteDataSource
-import br.com.gj.giphytest.features.trending.TrendingRepository
 import br.com.gj.giphytest.features.trending.TrendingViewModel
+import br.com.gj.giphytest.network.NetworkProvider
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
@@ -30,7 +30,7 @@ object InjectionManager {
     }
 
     private val repositoryModule = module {
-        factory { TrendingRepository(get()) }
+        factory { GetTrendingGifsUseCase(get()) }
     }
 
     private val dataSourceModule = module {

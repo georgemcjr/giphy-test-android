@@ -31,8 +31,6 @@ class TrendingFragment : Fragment() {
 
         setupRecyclerView()
         setupObservers()
-
-        viewModel.fetchTrendingGifs()
     }
 
     private fun setupObservers() {
@@ -56,6 +54,14 @@ class TrendingFragment : Fragment() {
 
     private fun loadTrendingItems(trendingItemList: List<TrendingItem>) {
         adapter.submitList(trendingItemList)
+        adapter.onSetItemFavorite = { item, isChecked ->
+            if (isChecked) {
+                viewModel.addFavorite(item)
+            } else {
+                // TODO add to favorites
+            }
+        }
+
         recyclerView_trending.adapter = adapter
     }
 

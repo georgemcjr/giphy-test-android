@@ -14,11 +14,13 @@ import kotlinx.android.synthetic.main.cell_item_gif.view.*
 class TrendingAdapter :
     ListAdapter<TrendingItem, TrendingAdapter.TrendingItemViewHolder>(DiffCallback) {
 
+    var onSetItemFavorite : ((TrendingItem, Boolean) -> Unit)? = null
+
     private object DiffCallback : DiffUtil.ItemCallback<TrendingItem>() {
+
         override fun areItemsTheSame(oldItem: TrendingItem, newItem: TrendingItem): Boolean {
             return oldItem == newItem
         }
-
         override fun areContentsTheSame(oldItem: TrendingItem, newItem: TrendingItem): Boolean {
             return oldItem.id == newItem.id
         }
@@ -41,11 +43,7 @@ class TrendingAdapter :
                 // TODO animate loading gif
                 itemView.imageView_cell.loadFromUrl(item.gifUrl)
                 itemView.button_favorite.setOnCheckedChangeListener { _, isChecked ->
-                    if (isChecked) {
-                        // TODO remove from favorites
-                    } else {
-                        // TODO add to favorites
-                    }
+                    onSetItemFavorite?.invoke(item, isChecked)
                 }
             }
         }
