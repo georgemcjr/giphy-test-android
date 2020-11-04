@@ -2,6 +2,7 @@ package br.com.gj.giphytest.di
 
 import android.app.Application
 import br.com.gj.giphytest.Api
+import br.com.gj.giphytest.features.favorites.*
 import br.com.gj.giphytest.features.trending.GetTrendingGifsUseCase
 import br.com.gj.giphytest.features.trending.TrendingRemoteDataSource
 import br.com.gj.giphytest.features.trending.TrendingViewModel
@@ -18,7 +19,7 @@ object InjectionManager {
             androidContext(application)
             modules(
                 viewModelModule,
-                repositoryModule,
+                useCasesModule,
                 dataSourceModule,
                 networkModule
             )
@@ -26,15 +27,20 @@ object InjectionManager {
     }
 
     private val viewModelModule = module {
-        viewModel { TrendingViewModel(get()) }
+        viewModel { TrendingViewModel(get(), get(), get(), get()) }
+        viewModel { FavoritesViewModel(get(), get()) }
     }
 
-    private val repositoryModule = module {
+    private val useCasesModule = module {
         factory { GetTrendingGifsUseCase(get()) }
+        factory { AddFavoriteGifUseCase(get()) }
+        factory { RemoveFavoriteGifUseCase(get()) }
+        factory { GetAllFavoritesGifUseCase(get()) }
     }
 
     private val dataSourceModule = module {
         factory { TrendingRemoteDataSource(get()) }
+        factory { FavoritesLocalDataSource() }
     }
 
     private val networkModule = module {

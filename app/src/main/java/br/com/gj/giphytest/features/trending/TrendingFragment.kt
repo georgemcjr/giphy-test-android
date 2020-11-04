@@ -8,8 +8,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
+import br.com.gj.giphytest.model.GifItem
 import br.com.gj.giphytest.model.State
-import br.com.gj.giphytest.model.TrendingItem
 import kotlinx.android.synthetic.main.fragment_trending.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -41,8 +41,11 @@ class TrendingFragment : Fragment() {
                     Log.d(">>>> New state", "Loading")
                 }
                 is State.Success<*> -> {
-                    Log.d(">>>> New state", "Success: ${state.safeContent<List<TrendingItem>>()}")
+                    Log.d(">>>> New state", "Success: ${state.safeContent<List<GifItem>>()}")
                     loadTrendingItems(state.safeContent())
+                    viewModel.getAll().observe(viewLifecycleOwner, {
+                        Log.d(">>>> New state", "Res: $it")
+                    })
                 }
                 is State.Error -> {
                     // TODO handle error state
@@ -52,13 +55,13 @@ class TrendingFragment : Fragment() {
         })
     }
 
-    private fun loadTrendingItems(trendingItemList: List<TrendingItem>) {
+    private fun loadTrendingItems(trendingItemList: List<GifItem>) {
         adapter.submitList(trendingItemList)
         adapter.onSetItemFavorite = { item, isChecked ->
             if (isChecked) {
                 viewModel.addFavorite(item)
             } else {
-                // TODO add to favorites
+                viewModel.removeFavorite(item)
             }
         }
 

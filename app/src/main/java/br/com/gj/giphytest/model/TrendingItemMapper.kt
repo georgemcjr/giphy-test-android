@@ -4,7 +4,7 @@ object TrendingItemMapper {
 
     fun mapFromResponse(trendingResponse: TrendingResponse) =
         trendingResponse.data.map { responseItem ->
-            TrendingItem(
+            GifItem(
                 id = responseItem.id,
                 gifUrl = responseItem.images.image.url
             )

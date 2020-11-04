@@ -5,7 +5,7 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import br.com.gj.giphytest.data.DatabaseManager
-import br.com.gj.giphytest.model.TrendingItem
+import br.com.gj.giphytest.model.GifItem
 import org.hamcrest.Matchers
 import org.hamcrest.Matchers.`is`
 import org.hamcrest.Matchers.notNullValue
@@ -18,6 +18,9 @@ import java.io.IOException
 
 @RunWith(AndroidJUnit4::class)
 class FavoritesDaoTest {
+
+    // TODO fix unit tests
+    // TODO create Trampoline scheduler
 
     private lateinit var database: DatabaseManager.AppDatabase
     private lateinit var favoritesDao: FavoritesDao
@@ -88,8 +91,8 @@ class FavoritesDaoTest {
         assertThat(result[0], `is`(gif2))
     }
 
-    private fun createGif(id: String = "1"): TrendingItem {
-        return TrendingItem(
+    private fun createGif(id: String = "1"): GifItem {
+        return GifItem(
             id = id,
             gifUrl = "url"
         )

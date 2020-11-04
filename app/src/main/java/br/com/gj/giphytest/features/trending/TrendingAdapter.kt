@@ -7,21 +7,21 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.gj.giphytest.R
-import br.com.gj.giphytest.model.TrendingItem
+import br.com.gj.giphytest.model.GifItem
 import br.com.gj.giphytest.util.loadFromUrl
 import kotlinx.android.synthetic.main.cell_item_gif.view.*
 
 class TrendingAdapter :
-    ListAdapter<TrendingItem, TrendingAdapter.TrendingItemViewHolder>(DiffCallback) {
+    ListAdapter<GifItem, TrendingAdapter.TrendingItemViewHolder>(DiffCallback) {
 
-    var onSetItemFavorite : ((TrendingItem, Boolean) -> Unit)? = null
+    var onSetItemFavorite : ((GifItem, Boolean) -> Unit)? = null
 
-    private object DiffCallback : DiffUtil.ItemCallback<TrendingItem>() {
+    private object DiffCallback : DiffUtil.ItemCallback<GifItem>() {
 
-        override fun areItemsTheSame(oldItem: TrendingItem, newItem: TrendingItem): Boolean {
+        override fun areItemsTheSame(oldItem: GifItem, newItem: GifItem): Boolean {
             return oldItem == newItem
         }
-        override fun areContentsTheSame(oldItem: TrendingItem, newItem: TrendingItem): Boolean {
+        override fun areContentsTheSame(oldItem: GifItem, newItem: GifItem): Boolean {
             return oldItem.id == newItem.id
         }
     }
@@ -38,10 +38,11 @@ class TrendingAdapter :
     }
 
     inner class TrendingItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun bind(item: TrendingItem?) {
+        fun bind(item: GifItem?) {
             if (item != null) {
                 // TODO animate loading gif
                 itemView.imageView_cell.loadFromUrl(item.gifUrl)
+                itemView.button_favorite.isChecked = item.isFavorite
                 itemView.button_favorite.setOnCheckedChangeListener { _, isChecked ->
                     onSetItemFavorite?.invoke(item, isChecked)
                 }

@@ -5,7 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import br.com.gj.giphytest.features.favorites.FavoritesDao
-import br.com.gj.giphytest.model.TrendingItem
+import br.com.gj.giphytest.model.GifItem
 
 object DatabaseManager {
 
@@ -23,7 +23,7 @@ object DatabaseManager {
 
     fun getInstance() : AppDatabase = INSTANCE
 
-    @Database(entities = [TrendingItem::class], version = 1, exportSchema = false)
+    @Database(entities = [GifItem::class], version = 1, exportSchema = false)
     abstract class AppDatabase : RoomDatabase() {
         abstract fun favoritesDao() : FavoritesDao
     }
