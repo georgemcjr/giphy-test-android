@@ -8,7 +8,9 @@ import io.reactivex.schedulers.Schedulers
 class AddFavoriteGifUseCase(private val localDataSource: FavoritesLocalDataSource) : BaseUseCase() {
 
     fun addFavorite(gif: GifItem) {
-        localDataSource.addFavorite(gif)
+        val gifToSave = gif.copy(isFavorite = true)
+
+        localDataSource.addFavorite(gifToSave)
             .subscribeOn(Schedulers.io()) // TODO: add schedulers via DI
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe()
