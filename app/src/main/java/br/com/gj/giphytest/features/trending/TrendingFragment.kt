@@ -34,7 +34,7 @@ class TrendingFragment : Fragment() {
     }
 
     private fun setupObservers() {
-        viewModel.gifListLiveData.observe(viewLifecycleOwner, { state ->
+        viewModel.liveDataMerger.observe(viewLifecycleOwner, { state ->
             when (state) {
                 is State.Loading -> {
                     // TODO handle loading state
@@ -43,9 +43,6 @@ class TrendingFragment : Fragment() {
                 is State.Success<*> -> {
                     Log.d(">>>> New state", "Success: ${state.safeContent<List<GifItem>>()}")
                     loadTrendingItems(state.safeContent())
-                    viewModel.getAll().observe(viewLifecycleOwner, {
-                        Log.d(">>>> New state", "Res: $it")
-                    })
                 }
                 is State.Error -> {
                     // TODO handle error state
