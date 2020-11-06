@@ -6,8 +6,7 @@ import androidx.lifecycle.MutableLiveData
 import br.com.gj.giphytest.domain.BaseUseCase
 import br.com.gj.giphytest.model.State
 import br.com.gj.giphytest.model.TrendingItemMapper
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import br.com.gj.giphytest.util.useDefaultSchedulers
 
 class GetTrendingGifsUseCase(
     private val remoteDataSource: TrendingRemoteDataSource
@@ -17,8 +16,7 @@ class GetTrendingGifsUseCase(
         val gifListLiveData = MutableLiveData<State>()
 
         remoteDataSource.fetchTrendingGifList()
-            .subscribeOn(Schedulers.io()) // TODO: add schedulers via DI
-            .observeOn(AndroidSchedulers.mainThread())
+            .useDefaultSchedulers()
             .doOnSubscribe {
                 gifListLiveData.value = State.Loading
             }

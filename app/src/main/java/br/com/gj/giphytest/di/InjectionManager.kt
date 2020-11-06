@@ -7,12 +7,18 @@ import br.com.gj.giphytest.features.trending.GetTrendingGifsUseCase
 import br.com.gj.giphytest.features.trending.TrendingRemoteDataSource
 import br.com.gj.giphytest.features.trending.TrendingViewModel
 import br.com.gj.giphytest.network.NetworkProvider
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import org.koin.android.ext.koin.androidContext
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.core.context.startKoin
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 
 object InjectionManager {
+
+    val ioScheduler = named("IO_SCHEDULER")
+    val mainThreadScheduler = named("MAIN_THREAD_SCHEDULER")
 
     fun init(application: Application) {
         startKoin {
@@ -21,7 +27,8 @@ object InjectionManager {
                 viewModelModule,
                 useCasesModule,
                 dataSourceModule,
-                networkModule
+                networkModule,
+                rxModule
             )
         }
     }
@@ -45,8 +52,11 @@ object InjectionManager {
 
     private val networkModule = module {
         single { NetworkProvider.provideOkHttpClient() }
-
         single<Api> { NetworkProvider.provideRetrofit(get()) }
     }
 
+    private val rxModule = module {
+        factory(ioScheduler) { Schedulers.io() }
+        factory(mainThreadScheduler) { AndroidSchedulers.mainThread() }
+    }
 }

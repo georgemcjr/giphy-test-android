@@ -2,8 +2,7 @@ package br.com.gj.giphytest.features.favorites
 
 import br.com.gj.giphytest.domain.BaseUseCase
 import br.com.gj.giphytest.model.GifItem
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import br.com.gj.giphytest.util.useDefaultSchedulers
 
 class AddFavoriteGifUseCase(private val localDataSource: FavoritesLocalDataSource) : BaseUseCase() {
 
@@ -11,8 +10,7 @@ class AddFavoriteGifUseCase(private val localDataSource: FavoritesLocalDataSourc
         val gifToSave = gif.copy(isFavorite = true)
 
         localDataSource.addFavorite(gifToSave)
-            .subscribeOn(Schedulers.io()) // TODO: add schedulers via DI
-            .observeOn(AndroidSchedulers.mainThread())
+            .useDefaultSchedulers()
             .subscribe()
             .collect()
     }

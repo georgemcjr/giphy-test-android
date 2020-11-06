@@ -13,7 +13,7 @@ class TrendingViewModel(
     private val getTrendingGifListUseCase: GetTrendingGifsUseCase,
     private val addFavoriteGifUseCase: AddFavoriteGifUseCase,
     private val removeFavoriteGifUseCase: RemoveFavoriteGifUseCase,
-    private val getAllFavoritesGifUseCase: GetAllFavoritesGifUseCase
+    getAllFavoritesGifUseCase: GetAllFavoritesGifUseCase
 ) : ViewModel() {
 
     val gifListLiveData: LiveData<State> = getTrendingGifListUseCase.fetchTrendingGifs()
