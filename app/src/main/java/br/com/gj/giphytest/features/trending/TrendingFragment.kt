@@ -79,7 +79,9 @@ class TrendingFragment : Fragment() {
 
     private fun setupRefresh() {
         swipeRefresh_trending.setOnRefreshListener {
-            loadData()
+            // TODO Thre refresh behavior depends on the search query
+            searchView_trending.setQuery("", false)
+//            loadData()
         }
     }
 
@@ -87,8 +89,10 @@ class TrendingFragment : Fragment() {
         searchView_trending.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
                 Log.d(">>>>", " onQueryTextSubmit: $query")
-                loadData()
-                return true
+                if (!query.isNullOrBlank()) {
+                    viewModel.searchGifs(query)
+                }
+                return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {

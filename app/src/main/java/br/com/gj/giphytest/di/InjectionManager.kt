@@ -4,7 +4,7 @@ import android.app.Application
 import br.com.gj.giphytest.Api
 import br.com.gj.giphytest.features.favorites.*
 import br.com.gj.giphytest.features.trending.GetTrendingGifsUseCase
-import br.com.gj.giphytest.features.trending.TrendingRemoteDataSource
+import br.com.gj.giphytest.features.trending.RemoteDataSource
 import br.com.gj.giphytest.features.trending.TrendingViewModel
 import br.com.gj.giphytest.network.NetworkProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -34,7 +34,7 @@ object InjectionManager {
     }
 
     private val viewModelModule = module {
-        viewModel { TrendingViewModel(get(), get(), get(), get()) }
+        viewModel { TrendingViewModel(get(), get(), get(), get(), get()) }
         viewModel { FavoritesViewModel(get(), get()) }
     }
 
@@ -43,10 +43,11 @@ object InjectionManager {
         factory { AddFavoriteGifUseCase(get()) }
         factory { RemoveFavoriteGifUseCase(get()) }
         factory { GetAllFavoritesGifUseCase(get()) }
+        factory { SearchGifsUseCase(get()) }
     }
 
     private val dataSourceModule = module {
-        factory { TrendingRemoteDataSource(get()) }
+        factory { RemoteDataSource(get()) }
         factory { FavoritesLocalDataSource() }
     }
 

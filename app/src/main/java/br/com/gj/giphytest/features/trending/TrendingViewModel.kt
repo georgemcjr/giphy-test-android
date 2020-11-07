@@ -6,11 +6,13 @@ import androidx.lifecycle.ViewModel
 import br.com.gj.giphytest.features.favorites.AddFavoriteGifUseCase
 import br.com.gj.giphytest.features.favorites.GetAllFavoritesGifUseCase
 import br.com.gj.giphytest.features.favorites.RemoveFavoriteGifUseCase
+import br.com.gj.giphytest.features.favorites.SearchGifsUseCase
 import br.com.gj.giphytest.model.GifItem
 import br.com.gj.giphytest.model.State
 
 class TrendingViewModel(
     private val getTrendingGifListUseCase: GetTrendingGifsUseCase,
+    private val searchGifsUseCase: SearchGifsUseCase,
     private val addFavoriteGifUseCase: AddFavoriteGifUseCase,
     private val removeFavoriteGifUseCase: RemoveFavoriteGifUseCase,
     getAllFavoritesGifUseCase: GetAllFavoritesGifUseCase
@@ -26,6 +28,9 @@ class TrendingViewModel(
         return getTrendingGifListUseCase.fetchTrendingGifs(_gifListLiveData)
     }
 
+    fun searchGifs(query: String) : LiveData<State> {
+        return searchGifsUseCase.searchGifs(query, _gifListLiveData)
+    }
 
     val favoriteListLiveData: LiveData<List<GifItem>> = getAllFavoritesGifUseCase.getAllFavorites()
 

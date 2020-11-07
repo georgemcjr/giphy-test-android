@@ -2,7 +2,7 @@ package br.com.gj.giphytest.model
 
 import com.google.gson.annotations.SerializedName
 
-data class TrendingResponse(
+data class GifListResponse(
     val data: List<Items>
     // TODO create model for pagination
 ) {

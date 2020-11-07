@@ -1,19 +1,21 @@
-package br.com.gj.giphytest.features.trending
+package br.com.gj.giphytest.features.favorites
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.gj.giphytest.domain.BaseUseCase
+import br.com.gj.giphytest.features.trending.RemoteDataSource
 import br.com.gj.giphytest.model.GifItemMapper
 import br.com.gj.giphytest.model.State
 
-class GetTrendingGifsUseCase(
+class SearchGifsUseCase(
     private val remoteDataSource: RemoteDataSource
 ) : BaseUseCase() {
 
-    fun fetchTrendingGifs(gifListLiveData: MutableLiveData<State>): LiveData<State> =
+    fun searchGifs(query: String, gifListLiveData: MutableLiveData<State>): LiveData<State> =
         fetchRemoteDataReceivingStateChanges(
-            remoteDataSource.fetchTrendingGifList(),
+            remoteDataSource.searchGifList(query),
             GifItemMapper::mapFromResponse,
             gifListLiveData
         )
+
 }
