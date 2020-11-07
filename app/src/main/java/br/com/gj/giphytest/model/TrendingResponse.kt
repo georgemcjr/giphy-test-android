@@ -15,6 +15,7 @@ data class TrendingResponse(
         @SerializedName("fixed_width") val image: Image
     )
 
+    // TODO get the gif dimensions and redimension imageview to wrap the entire gif
     data class Image(
         val url: String
     )

@@ -1,7 +1,7 @@
 package br.com.gj.giphytest.features.trending
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MediatorLiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import br.com.gj.giphytest.features.favorites.AddFavoriteGifUseCase
 import br.com.gj.giphytest.features.favorites.GetAllFavoritesGifUseCase
@@ -16,38 +16,47 @@ class TrendingViewModel(
     getAllFavoritesGifUseCase: GetAllFavoritesGifUseCase
 ) : ViewModel() {
 
-    val gifListLiveData: LiveData<State> = getTrendingGifListUseCase.fetchTrendingGifs()
+    // TODO: Didn't like this approach of passing the mutable live data to fetchTrendingGifs()
+    //  and receive modify it inside the function. Try to find another approach
+    private val _gifListLiveData: MutableLiveData<State> = MutableLiveData<State>()
+    val gifListLiveData: LiveData<State>
+        get() = _gifListLiveData
+
+    fun fetchTrendingGifs() : LiveData<State> {
+        return getTrendingGifListUseCase.fetchTrendingGifs(_gifListLiveData)
+    }
+
 
     val favoriteListLiveData: LiveData<List<GifItem>> = getAllFavoritesGifUseCase.getAllFavorites()
 
     // TODO Refactor this code
     // region need refactoring
-    val liveDataMerger = MediatorLiveData<State>().apply {
-        var fromNetwork: State? = null
-        var fromDatabase: List<GifItem>? = null
-
-        fun update() {
-            fromNetwork.let { state ->
-                if (state is State.Success<*>) {
-                    val completeList : List<GifItem> = state.safeContent()
-                    val mergedList = markFavorites(completeList, fromDatabase ?: emptyList())
-                    this.value = State.Success(mergedList)
-                } else {
-                    this.value = fromNetwork
-                }
-            }
-        }
-
-        addSource(gifListLiveData) { state ->
-            fromNetwork = state
-            update()
-        }
-
-        addSource(favoriteListLiveData) { items ->
-            fromDatabase = items
-            update()
-        }
-    }
+//    val liveDataMerger = MediatorLiveData<State>().apply {
+//        var fromNetwork: State? = null
+//        var fromDatabase: List<GifItem>? = null
+//
+//        fun update() {
+//            fromNetwork.let { state ->
+//                if (state is State.Success<*>) {
+//                    val completeList : List<GifItem> = state.safeContent()
+//                    val mergedList = markFavorites(completeList, fromDatabase ?: emptyList())
+//                    this.value = State.Success(mergedList)
+//                } else {
+//                    this.value = fromNetwork
+//                }
+//            }
+//        }
+//
+//        addSource(gifListLiveData) { state ->
+//            fromNetwork = state
+//            update()
+//        }
+//
+//        addSource(favoriteListLiveData) { items ->
+//            fromDatabase = items
+//            update()
+//        }
+//    }
 
     private fun markFavorites(completeList: List<GifItem>, favoriteList: List<GifItem>): List<GifItem> {
         val result = completeList.toMutableList()

@@ -5,5 +5,6 @@
     <string name="title_favorites">Favorites</string>
     <string name="cd_cell_item_gif">cell item gif</string>
     <string name="cd_cell_Item_favorite_gif">cell item favorite gif</string>
+    <string name="search_hitn">Search...</string>
 
 </resources>

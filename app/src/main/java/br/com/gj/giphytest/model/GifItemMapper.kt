@@ -1,8 +1,8 @@
 package br.com.gj.giphytest.model
 
-object TrendingItemMapper {
+object GifItemMapper {
 
-    fun mapFromResponse(trendingResponse: TrendingResponse) =
+    fun mapFromTrendingResponse(trendingResponse: TrendingResponse) =
         trendingResponse.data.map { responseItem ->
             GifItem(
                 id = responseItem.id,
