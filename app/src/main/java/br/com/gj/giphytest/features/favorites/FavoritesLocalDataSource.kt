@@ -1,24 +1,20 @@
 package br.com.gj.giphytest.features.favorites
 
 import androidx.lifecycle.LiveData
-import br.com.gj.giphytest.data.DatabaseManager
 import br.com.gj.giphytest.model.GifItem
 import io.reactivex.Completable
 
-class FavoritesLocalDataSource {
+class FavoritesLocalDataSource(private val favoritesDao: FavoritesDao) {
 
     fun addFavorite(gif: GifItem): Completable {
-        // TODO this Dao could be injected
-        return DatabaseManager.getInstance().favoritesDao().insertItem(gif)
+        return favoritesDao.insertItem(gif)
     }
 
     fun removeFavorite(gif: GifItem): Completable {
-        // TODO this Dao could be injected
-        return DatabaseManager.getInstance().favoritesDao().remoteItem(gif)
+        return favoritesDao.remoteItem(gif)
     }
 
     fun getAllFavorites(): LiveData<List<GifItem>> {
-        // TODO this Dao could be injected
-        return DatabaseManager.getInstance().favoritesDao().getAll()
+        return favoritesDao.getAll()
     }
 }

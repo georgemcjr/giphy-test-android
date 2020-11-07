@@ -42,7 +42,6 @@ class TrendingFragment : Fragment() {
         viewModel.gifListLiveData.observe(viewLifecycleOwner, { state ->
             when (state) {
                 is State.Loading -> {
-                    // TODO handle loading state
                     Log.d(">>>> New state", "Loading")
                     swipeRefresh_trending.isRefreshing = true
                 }
@@ -79,7 +78,8 @@ class TrendingFragment : Fragment() {
 
     private fun setupRefresh() {
         swipeRefresh_trending.setOnRefreshListener {
-            // TODO Thre refresh behavior depends on the search query
+            // TODO The refresh behavior depends on the search query
+            //  not a good approach
             searchView_trending.setQuery("", false)
 //            loadData()
         }

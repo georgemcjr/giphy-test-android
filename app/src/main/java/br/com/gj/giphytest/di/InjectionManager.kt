@@ -2,6 +2,7 @@ package br.com.gj.giphytest.di
 
 import android.app.Application
 import br.com.gj.giphytest.Api
+import br.com.gj.giphytest.data.DatabaseManager
 import br.com.gj.giphytest.features.favorites.*
 import br.com.gj.giphytest.features.trending.GetTrendingGifsUseCase
 import br.com.gj.giphytest.features.trending.RemoteDataSource
@@ -27,6 +28,7 @@ object InjectionManager {
                 viewModelModule,
                 useCasesModule,
                 dataSourceModule,
+                daoModule,
                 networkModule,
                 rxModule
             )
@@ -48,7 +50,11 @@ object InjectionManager {
 
     private val dataSourceModule = module {
         factory { RemoteDataSource(get()) }
-        factory { FavoritesLocalDataSource() }
+        factory { FavoritesLocalDataSource(get()) }
+    }
+
+    private val daoModule = module {
+        single { DatabaseManager.getInstance().favoritesDao() }
     }
 
     private val networkModule = module {
