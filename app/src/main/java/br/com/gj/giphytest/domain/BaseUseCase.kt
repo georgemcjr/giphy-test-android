@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.gj.giphytest.model.State
 import br.com.gj.giphytest.util.useDefaultSchedulers
-import io.reactivex.Single
+import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
@@ -12,38 +12,34 @@ abstract class BaseUseCase {
 
     private val compositeDisposable = CompositeDisposable()
 
-    fun clearDisposables() {
-        compositeDisposable.dispose()
+    open fun clearDisposables() {
+        compositeDisposable.clear()
     }
 
     fun Disposable.collect() {
         compositeDisposable.add(this)
     }
 
-    fun <Response, Model> fetchRemoteDataReceivingStateChanges(
-        responseSingle: Single<Response>,
-        mapper: (Response) -> (Model),
-        stateLiveData: MutableLiveData<State>
+    fun <Response> fetchDataDataReceivingStateChanges(
+        responseSingle: Observable<Response>,
+        stateListenerLiveData: MutableLiveData<State>
     ): LiveData<State> {
 
         responseSingle
             .useDefaultSchedulers()
             .doOnSubscribe {
-                stateLiveData.value = State.Loading
+                stateListenerLiveData.value = State.Loading
             }
-            .map { response ->
-                mapper(response)
-            }
-            .doOnSuccess { gitItemList ->
-                stateLiveData.value = State.Success(gitItemList)
+            .doOnNext { model ->
+                stateListenerLiveData.value = State.Success(model)
             }
             .doOnError { error ->
-                stateLiveData.value = State.Error(error)
+                stateListenerLiveData.value = State.Error(error)
             }
             .subscribe()
             .collect()
 
-        return stateLiveData
+        return stateListenerLiveData
     }
 
 }

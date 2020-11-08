@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.SearchView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
@@ -42,63 +43,56 @@ class TrendingFragment : Fragment() {
         viewModel.gifListLiveData.observe(viewLifecycleOwner, { state ->
             when (state) {
                 is State.Loading -> {
-                    Log.d(">>>> New state", "Loading")
                     swipeRefresh_trending.isRefreshing = true
                 }
                 is State.Success<*> -> {
-                    Log.d(">>>> New state", "Success: ${state.safeContent<List<GifItem>>()}")
-                    loadTrendingItems(state.safeContent())
+                    Log.d("Obs>>>>", "Live Emit result: ${state.safeContent<List<GifItem>>().size}")
+                    reloadItemsInAdapter(state.safeContent())
                     swipeRefresh_trending.isRefreshing = false
                 }
                 is State.Error -> {
-                    // TODO handle error state
-                    Log.d(">>>> New state", "Error: ${state.error}")
+                    Toast.makeText(context, state.error.message, Toast.LENGTH_LONG).show()
                     swipeRefresh_trending.isRefreshing = false
                 }
             }
         })
+
     }
 
-    private fun loadTrendingItems(trendingItemList: List<GifItem>) {
+    private fun reloadItemsInAdapter(trendingItemList: List<GifItem>) {
         adapter.submitList(trendingItemList)
-        adapter.onSetItemFavorite = { item, isChecked ->
-            if (isChecked) {
+    }
+
+    private fun setupRecyclerView() {
+        recyclerView_trending.layoutManager = GridLayoutManager(context, 2)
+        recyclerView_trending.adapter = adapter
+        adapter.onSetItemFavorite = { item, setFavorite ->
+            if (setFavorite) {
                 viewModel.addFavorite(item)
             } else {
                 viewModel.removeFavorite(item)
             }
         }
-
-        recyclerView_trending.adapter = adapter
-    }
-
-    private fun setupRecyclerView() {
-        recyclerView_trending.layoutManager = GridLayoutManager(context, 2)
     }
 
     private fun setupRefresh() {
         swipeRefresh_trending.setOnRefreshListener {
-            // TODO The refresh behavior depends on the search query
-            //  not a good approach
-            searchView_trending.setQuery("", false)
-//            loadData()
+            viewModel.fetchGifs(searchView_trending.query.toString())
         }
     }
 
     private fun setupSearchView() {
         searchView_trending.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
             override fun onQueryTextSubmit(query: String?): Boolean {
-                Log.d(">>>>", " onQueryTextSubmit: $query")
                 if (!query.isNullOrBlank()) {
-                    viewModel.searchGifs(query)
+                    viewModel.fetchGifs(query)
                 }
                 return false
             }
 
             override fun onQueryTextChange(newText: String?): Boolean {
-                Log.d(">>>>", " onQueryTextChange: $newText")
                 if (newText.isNullOrBlank()) {
-                    loadData()
+                    viewModel.fetchGifs()
                 }
                 return true
             }
@@ -106,7 +100,7 @@ class TrendingFragment : Fragment() {
     }
 
     private fun loadData() {
-        viewModel.fetchTrendingGifs()
+        viewModel.fetchGifs()
     }
 
 }

@@ -17,13 +17,12 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
 
-    <CheckBox
+    <ImageButton
         android:id="@+id/button_favorite"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:background="@drawable/toggle_favorite"
+        android:background="@drawable/toggle_unselected_background"
         android:contentDescription="@string/cd_cell_Item_favorite_gif"
-        android:button="@null"
         android:gravity="center"
         app:layout_constraintBottom_toBottomOf="@id/imageView_cell"
         app:layout_constraintEnd_toEndOf="@id/imageView_cell" />

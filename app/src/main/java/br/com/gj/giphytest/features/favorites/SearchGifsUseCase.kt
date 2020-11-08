@@ -8,14 +8,27 @@ import br.com.gj.giphytest.model.GifItemMapper
 import br.com.gj.giphytest.model.State
 
 class SearchGifsUseCase(
-    private val remoteDataSource: RemoteDataSource
+    private val remoteDataSource: RemoteDataSource,
+    private val combineWithFavoriteGifsUseCase: CombineWithFavoriteGifsUseCase
 ) : BaseUseCase() {
 
-    fun searchGifs(query: String, gifListLiveData: MutableLiveData<State>): LiveData<State> =
-        fetchRemoteDataReceivingStateChanges(
-            remoteDataSource.searchGifList(query),
-            GifItemMapper::mapFromResponse,
-            gifListLiveData
+    fun searchGifs(
+        query: String,
+        stateListenerLiveData: MutableLiveData<State>
+    ): LiveData<State> =
+        fetchDataDataReceivingStateChanges(
+            combineWithFavoriteGifsUseCase.combineWith(searchAndMapGifList(query)),
+            stateListenerLiveData
         )
+
+    private fun searchAndMapGifList(query: String) =
+        remoteDataSource.searchGifList(query)
+            .map(GifItemMapper::mapFromResponse)
+            .toObservable()
+
+    override fun clearDisposables() {
+        combineWithFavoriteGifsUseCase.clearDisposables()
+        super.clearDisposables()
+    }
 
 }

@@ -19,10 +19,10 @@ class TrendingAdapter :
     private object DiffCallback : DiffUtil.ItemCallback<GifItem>() {
 
         override fun areItemsTheSame(oldItem: GifItem, newItem: GifItem): Boolean {
-            return oldItem == newItem
+            return oldItem.id == newItem.id
         }
         override fun areContentsTheSame(oldItem: GifItem, newItem: GifItem): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.id == newItem.id && oldItem.isFavorite == newItem.isFavorite
         }
     }
 
@@ -40,11 +40,17 @@ class TrendingAdapter :
     inner class TrendingItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(item: GifItem?) {
             if (item != null) {
-                // TODO animate loading gif
                 itemView.imageView_cell.loadFromUrl(item.gifUrl)
-                itemView.button_favorite.isChecked = item.isFavorite
-                itemView.button_favorite.setOnCheckedChangeListener { _, isChecked ->
-                    onSetItemFavorite?.invoke(item, isChecked)
+
+                val bgRes = if (item.isFavorite) {
+                    R.drawable.toggle_selected_background
+                } else {
+                    R.drawable.toggle_unselected_background
+                }
+
+                itemView.button_favorite.setBackgroundResource(bgRes)
+                itemView.button_favorite.setOnClickListener {
+                    onSetItemFavorite?.invoke(item, !item.isFavorite)
                 }
             }
         }

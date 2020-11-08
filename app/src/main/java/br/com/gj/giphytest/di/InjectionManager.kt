@@ -36,16 +36,17 @@ object InjectionManager {
     }
 
     private val viewModelModule = module {
-        viewModel { TrendingViewModel(get(), get(), get(), get(), get()) }
+        viewModel { TrendingViewModel(get(), get(), get(), get()) }
         viewModel { FavoritesViewModel(get(), get()) }
     }
 
     private val useCasesModule = module {
-        factory { GetTrendingGifsUseCase(get()) }
+        factory { GetTrendingGifsUseCase(get(), get()) }
         factory { AddFavoriteGifUseCase(get()) }
         factory { RemoveFavoriteGifUseCase(get()) }
         factory { GetAllFavoritesGifUseCase(get()) }
-        factory { SearchGifsUseCase(get()) }
+        factory { SearchGifsUseCase(get(), get()) }
+        factory { CombineWithFavoriteGifsUseCase(get()) }
     }
 
     private val dataSourceModule = module {
