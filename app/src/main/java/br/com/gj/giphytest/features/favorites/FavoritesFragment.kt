@@ -36,7 +36,7 @@ class FavoritesFragment : Fragment() {
     private fun setupObservers() {
         viewModel.favoritesLiveData.observe(viewLifecycleOwner, { favoriteList ->
             adapter.submitList(favoriteList)
-            adapter.onSetItemFavorite = { item, isChecked ->
+            adapter.onSetItemFavorite = { item, isChecked, position ->
                 if (!isChecked) {
                     viewModel.removeFavorite(item)
                 }
