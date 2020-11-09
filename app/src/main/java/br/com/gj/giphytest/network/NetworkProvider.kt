@@ -1,5 +1,6 @@
 package br.com.gj.giphytest.network
 
+import br.com.gj.giphytest.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -8,8 +9,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkProvider {
 
-    // TODO: put this baseUrl on build.gradle
-    const val baseUrl = "http://api.giphy.com/v1/gifs/"
+    const val baseUrl = BuildConfig.BASE_URL
 
     fun provideOkHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()

@@ -11,8 +11,8 @@ import br.com.gj.giphytest.features.common.model.GifItem
 import br.com.gj.giphytest.util.loadFromUrl
 import kotlinx.android.synthetic.main.cell_item_gif.view.*
 
-class TrendingAdapter :
-    ListAdapter<GifItem, TrendingAdapter.TrendingItemViewHolder>(DiffCallback) {
+class GifListAdapter :
+    ListAdapter<GifItem, GifListAdapter.TrendingItemViewHolder>(DiffCallback) {
 
     var onSetItemFavorite : ((GifItem, Boolean) -> Unit)? = null
 

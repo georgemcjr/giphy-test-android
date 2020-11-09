@@ -10,7 +10,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
-import br.com.gj.giphytest.features.common.TrendingAdapter
+import br.com.gj.giphytest.features.common.GifListAdapter
 import br.com.gj.giphytest.features.common.model.GifItem
 import br.com.gj.giphytest.features.common.model.State
 import kotlinx.android.synthetic.main.fragment_trending.*
@@ -20,7 +20,7 @@ class TrendingFragment : Fragment() {
 
     private val viewModel: TrendingViewModel by viewModel()
 
-    private val adapter by lazy { TrendingAdapter() }
+    private val adapter by lazy { GifListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

@@ -12,10 +12,6 @@ class FavoritesLocalDataSource(private val favoritesDao: FavoritesDao) {
         return favoritesDao.insertItem(gif)
     }
 
-    fun addFavorite(gifList: List<GifItem>): Completable {
-        return favoritesDao.insertItem(gifList)
-    }
-
     fun removeFavorite(gif: GifItem): Completable {
         return favoritesDao.remoteItem(gif)
     }

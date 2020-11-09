@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
-import br.com.gj.giphytest.features.common.TrendingAdapter
+import br.com.gj.giphytest.features.common.GifListAdapter
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -15,7 +15,7 @@ class FavoritesFragment : Fragment() {
 
     private val viewModel: FavoritesViewModel by viewModel()
 
-    private val adapter by lazy { TrendingAdapter() }
+    private val adapter by lazy { GifListAdapter() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

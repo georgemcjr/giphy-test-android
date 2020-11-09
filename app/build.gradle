@@ -20,9 +20,18 @@ android {
     }
 
     buildTypes {
+        debug {
+            minifyEnabled false
+            buildConfigField "String", "BASE_URL", "\"http://api.giphy.com/v1/gifs/\""
+            buildConfigField "String", "API_KEY", "\"zixggTpunIccmTmv97n887ujCU5TprDa\""
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField "String", "BASE_URL", "\"http://api.giphy.com/v1/gifs/\""
+            buildConfigField "String", "API_KEY", "\"zixggTpunIccmTmv97n887ujCU5TprDa\""
         }
     }
     compileOptions {

@@ -38,6 +38,10 @@ class TrendingViewModel(
         // favorites (i.e. changes in favorites table in the database)
         // This is due to the Observable.combineLatest operator used in
         // the CombineWithFavoriteGifsUseCase
+        //
+        // Using the database as the Single Source of Truth and caching
+        // the responses on the database would be a better approach to share
+        // the state of the gifs between the TRENDING and FAVORITES fragments
         getTrendingGifListUseCase.clearDisposables()
         searchGifsUseCase.clearDisposables()
 

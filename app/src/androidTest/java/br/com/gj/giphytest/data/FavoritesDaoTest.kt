@@ -1,4 +1,4 @@
-package br.com.gj.giphytest.features.favorites
+package br.com.gj.giphytest.data
 
 import android.content.Context
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
@@ -8,8 +8,6 @@ import androidx.room.Room
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import br.com.gj.giphytest.RxTestSchedulerRule
-import br.com.gj.giphytest.data.DatabaseManager
-import br.com.gj.giphytest.data.FavoritesDao
 import br.com.gj.giphytest.features.common.model.GifItem
 import org.hamcrest.Matchers
 import org.hamcrest.Matchers.`is`
