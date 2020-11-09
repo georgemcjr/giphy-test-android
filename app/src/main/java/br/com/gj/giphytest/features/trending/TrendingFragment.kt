@@ -1,7 +1,6 @@
 package br.com.gj.giphytest.features.trending
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -47,7 +46,6 @@ class TrendingFragment : Fragment() {
                     swipeRefresh_trending.isRefreshing = true
                 }
                 is State.Success<*> -> {
-                    Log.d("Obs>>>>", "Live Emit result: ${state.safeContent<List<GifItem>>().size}")
                     reloadItemsInAdapter(state.safeContent())
                     swipeRefresh_trending.isRefreshing = false
                 }
@@ -60,10 +58,6 @@ class TrendingFragment : Fragment() {
 
     }
 
-    private fun reloadItemsInAdapter(trendingItemList: List<GifItem>) {
-        adapter.submitList(trendingItemList)
-    }
-
     private fun setupRecyclerView() {
         recyclerView_trending.layoutManager = GridLayoutManager(context, 2)
         recyclerView_trending.adapter = adapter
@@ -74,6 +68,10 @@ class TrendingFragment : Fragment() {
                 viewModel.removeFavorite(item)
             }
         }
+    }
+
+    private fun reloadItemsInAdapter(trendingItemList: List<GifItem>) {
+        adapter.submitList(trendingItemList)
     }
 
     private fun setupRefresh() {
