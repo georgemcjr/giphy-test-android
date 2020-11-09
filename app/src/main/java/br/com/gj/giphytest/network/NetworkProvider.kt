@@ -11,7 +11,6 @@ object NetworkProvider {
     // TODO: put this baseUrl on build.gradle
     const val baseUrl = "http://api.giphy.com/v1/gifs/"
 
-    // TODO: Configure timeouts
     fun provideOkHttpClient(): OkHttpClient {
         val loggingInterceptor = HttpLoggingInterceptor()
         loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY

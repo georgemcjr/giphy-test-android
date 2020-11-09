@@ -10,8 +10,9 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
-import br.com.gj.giphytest.model.GifItem
-import br.com.gj.giphytest.model.State
+import br.com.gj.giphytest.features.common.TrendingAdapter
+import br.com.gj.giphytest.features.common.model.GifItem
+import br.com.gj.giphytest.features.common.model.State
 import kotlinx.android.synthetic.main.fragment_trending.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

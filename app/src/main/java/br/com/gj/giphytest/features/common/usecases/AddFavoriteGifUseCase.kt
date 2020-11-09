@@ -1,7 +1,7 @@
-package br.com.gj.giphytest.features.favorites
+package br.com.gj.giphytest.features.common.usecases
 
-import br.com.gj.giphytest.domain.BaseUseCase
-import br.com.gj.giphytest.model.GifItem
+import br.com.gj.giphytest.features.common.model.GifItem
+import br.com.gj.giphytest.features.favorites.FavoritesLocalDataSource
 import br.com.gj.giphytest.util.useDefaultSchedulers
 
 class AddFavoriteGifUseCase(private val localDataSource: FavoritesLocalDataSource) : BaseUseCase() {

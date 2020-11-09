@@ -1,11 +1,12 @@
-package br.com.gj.giphytest.features.trending
+package br.com.gj.giphytest.features.trending.usecases
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import br.com.gj.giphytest.domain.BaseUseCase
-import br.com.gj.giphytest.features.favorites.CombineWithFavoriteGifsUseCase
-import br.com.gj.giphytest.model.GifItemMapper
-import br.com.gj.giphytest.model.State
+import br.com.gj.giphytest.features.common.model.GifItemMapper
+import br.com.gj.giphytest.features.common.model.State
+import br.com.gj.giphytest.features.common.usecases.BaseUseCase
+import br.com.gj.giphytest.features.favorites.usecases.CombineWithFavoriteGifsUseCase
+import br.com.gj.giphytest.features.trending.RemoteDataSource
 
 class GetTrendingGifsUseCase(
     private val remoteDataSource: RemoteDataSource,

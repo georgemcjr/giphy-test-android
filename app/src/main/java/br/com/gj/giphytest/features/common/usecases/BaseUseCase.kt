@@ -1,8 +1,8 @@
-package br.com.gj.giphytest.domain
+package br.com.gj.giphytest.features.common.usecases
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import br.com.gj.giphytest.model.State
+import br.com.gj.giphytest.features.common.model.State
 import br.com.gj.giphytest.util.useDefaultSchedulers
 import io.reactivex.Observable
 import io.reactivex.disposables.CompositeDisposable

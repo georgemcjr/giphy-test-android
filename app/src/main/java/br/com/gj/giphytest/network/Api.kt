@@ -1,6 +1,6 @@
-package br.com.gj.giphytest
+package br.com.gj.giphytest.network
 
-import br.com.gj.giphytest.model.GifListResponse
+import br.com.gj.giphytest.features.common.model.GifListResponse
 import io.reactivex.Single
 import retrofit2.http.GET
 import retrofit2.http.Query

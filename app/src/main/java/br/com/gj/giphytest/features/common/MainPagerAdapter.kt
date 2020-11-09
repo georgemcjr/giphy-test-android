@@ -1,4 +1,4 @@
-package br.com.gj.giphytest
+package br.com.gj.giphytest.features.common
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

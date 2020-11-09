@@ -1,4 +1,4 @@
-package br.com.gj.giphytest.features.trending
+package br.com.gj.giphytest.features.common
 
 import android.view.LayoutInflater
 import android.view.View
@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import br.com.gj.giphytest.R
-import br.com.gj.giphytest.model.GifItem
+import br.com.gj.giphytest.features.common.model.GifItem
 import br.com.gj.giphytest.util.loadFromUrl
 import kotlinx.android.synthetic.main.cell_item_gif.view.*
 

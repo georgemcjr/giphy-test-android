@@ -1,10 +1,9 @@
-package br.com.gj.giphytest.model
+package br.com.gj.giphytest.features.common.model
 
 import com.google.gson.annotations.SerializedName
 
 data class GifListResponse(
     val data: List<Items>
-    // TODO create model for pagination
 ) {
     data class Items(
         val id: String,
@@ -15,7 +14,6 @@ data class GifListResponse(
         @SerializedName("fixed_width") val image: Image
     )
 
-    // TODO get the gif dimensions and redimension imageview to wrap the entire gif
     data class Image(
         val url: String
     )

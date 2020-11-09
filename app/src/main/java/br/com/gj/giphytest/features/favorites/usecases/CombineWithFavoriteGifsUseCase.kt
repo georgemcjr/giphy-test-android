@@ -1,7 +1,7 @@
-package br.com.gj.giphytest.features.favorites
+package br.com.gj.giphytest.features.favorites.usecases
 
-import br.com.gj.giphytest.domain.BaseUseCase
-import br.com.gj.giphytest.model.GifItem
+import br.com.gj.giphytest.features.common.model.GifItem
+import br.com.gj.giphytest.features.common.usecases.BaseUseCase
 import io.reactivex.Observable
 
 class CombineWithFavoriteGifsUseCase(

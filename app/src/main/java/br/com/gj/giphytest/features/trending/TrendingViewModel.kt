@@ -3,11 +3,12 @@ package br.com.gj.giphytest.features.trending
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import br.com.gj.giphytest.features.favorites.AddFavoriteGifUseCase
-import br.com.gj.giphytest.features.favorites.RemoveFavoriteGifUseCase
-import br.com.gj.giphytest.features.favorites.SearchGifsUseCase
-import br.com.gj.giphytest.model.GifItem
-import br.com.gj.giphytest.model.State
+import br.com.gj.giphytest.features.common.model.GifItem
+import br.com.gj.giphytest.features.common.model.State
+import br.com.gj.giphytest.features.common.usecases.AddFavoriteGifUseCase
+import br.com.gj.giphytest.features.common.usecases.RemoveFavoriteGifUseCase
+import br.com.gj.giphytest.features.trending.usecases.GetTrendingGifsUseCase
+import br.com.gj.giphytest.features.trending.usecases.SearchGifsUseCase
 
 class TrendingViewModel(
     private val getTrendingGifListUseCase: GetTrendingGifsUseCase,
@@ -16,9 +17,8 @@ class TrendingViewModel(
     private val removeFavoriteGifUseCase: RemoveFavoriteGifUseCase,
 ) : ViewModel() {
 
-    // TODO: Didn't like this approach of passing the mutable live data to fetchTrendingGifs()
-    //  and receive modify it inside the function. Try to find another approach
     private val _gifListLiveData: MutableLiveData<State> = MutableLiveData<State>()
+
     val gifListLiveData: LiveData<State>
         get() = _gifListLiveData
 

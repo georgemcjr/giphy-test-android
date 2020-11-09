@@ -1,4 +1,4 @@
-package br.com.gj.giphytest.model
+package br.com.gj.giphytest.features.common.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

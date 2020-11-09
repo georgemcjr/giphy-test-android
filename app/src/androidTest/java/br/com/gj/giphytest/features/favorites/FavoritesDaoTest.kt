@@ -9,7 +9,8 @@ import androidx.test.core.app.ApplicationProvider
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import br.com.gj.giphytest.RxTestSchedulerRule
 import br.com.gj.giphytest.data.DatabaseManager
-import br.com.gj.giphytest.model.GifItem
+import br.com.gj.giphytest.data.FavoritesDao
+import br.com.gj.giphytest.features.common.model.GifItem
 import org.hamcrest.Matchers
 import org.hamcrest.Matchers.`is`
 import org.junit.After

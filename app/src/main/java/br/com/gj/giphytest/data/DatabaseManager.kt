@@ -4,8 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import br.com.gj.giphytest.features.favorites.FavoritesDao
-import br.com.gj.giphytest.model.GifItem
+import br.com.gj.giphytest.features.common.model.GifItem
 
 object DatabaseManager {
 

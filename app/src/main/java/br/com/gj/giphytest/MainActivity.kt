@@ -2,6 +2,7 @@ package br.com.gj.giphytest
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import br.com.gj.giphytest.features.common.MainPagerAdapter
 import br.com.gj.giphytest.features.favorites.FavoritesFragment
 import br.com.gj.giphytest.features.trending.TrendingFragment
 import com.google.android.material.tabs.TabLayoutMediator

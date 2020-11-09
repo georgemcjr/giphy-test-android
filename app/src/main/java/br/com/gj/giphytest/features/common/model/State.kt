@@ -1,4 +1,4 @@
-package br.com.gj.giphytest.model
+package br.com.gj.giphytest.features.common.model
 
 sealed class State {
     class Success<out T>(val content: T) : State() {

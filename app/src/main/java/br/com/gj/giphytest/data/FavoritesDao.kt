@@ -1,8 +1,8 @@
-package br.com.gj.giphytest.features.favorites
+package br.com.gj.giphytest.data
 
 import androidx.lifecycle.LiveData
 import androidx.room.*
-import br.com.gj.giphytest.model.GifItem
+import br.com.gj.giphytest.features.common.model.GifItem
 import io.reactivex.Completable
 import io.reactivex.Observable
 

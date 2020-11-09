@@ -1,6 +1,6 @@
 package br.com.gj.giphytest.features.trending
 
-import br.com.gj.giphytest.Api
+import br.com.gj.giphytest.network.Api
 
 class RemoteDataSource(private val api: Api) {
 

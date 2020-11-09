@@ -1,12 +1,18 @@
 package br.com.gj.giphytest.di
 
 import android.app.Application
-import br.com.gj.giphytest.Api
 import br.com.gj.giphytest.data.DatabaseManager
-import br.com.gj.giphytest.features.favorites.*
-import br.com.gj.giphytest.features.trending.GetTrendingGifsUseCase
+import br.com.gj.giphytest.features.common.usecases.AddFavoriteGifUseCase
+import br.com.gj.giphytest.features.common.usecases.RemoveFavoriteGifUseCase
+import br.com.gj.giphytest.features.favorites.FavoritesLocalDataSource
+import br.com.gj.giphytest.features.favorites.FavoritesViewModel
+import br.com.gj.giphytest.features.favorites.usecases.CombineWithFavoriteGifsUseCase
+import br.com.gj.giphytest.features.favorites.usecases.GetAllFavoritesGifUseCase
 import br.com.gj.giphytest.features.trending.RemoteDataSource
 import br.com.gj.giphytest.features.trending.TrendingViewModel
+import br.com.gj.giphytest.features.trending.usecases.GetTrendingGifsUseCase
+import br.com.gj.giphytest.features.trending.usecases.SearchGifsUseCase
+import br.com.gj.giphytest.network.Api
 import br.com.gj.giphytest.network.NetworkProvider
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers

@@ -7,13 +7,11 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import br.com.gj.giphytest.R
-import br.com.gj.giphytest.features.trending.TrendingAdapter
+import br.com.gj.giphytest.features.common.TrendingAdapter
 import kotlinx.android.synthetic.main.fragment_favorites.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class FavoritesFragment : Fragment() {
-
-    // TODO DRY cases between this fragment and Trending
 
     private val viewModel: FavoritesViewModel by viewModel()
 

@@ -1,7 +1,8 @@
 package br.com.gj.giphytest.features.favorites
 
 import androidx.lifecycle.LiveData
-import br.com.gj.giphytest.model.GifItem
+import br.com.gj.giphytest.data.FavoritesDao
+import br.com.gj.giphytest.features.common.model.GifItem
 import io.reactivex.Completable
 import io.reactivex.Observable
 

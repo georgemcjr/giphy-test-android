@@ -1,7 +1,8 @@
-package br.com.gj.giphytest.features.favorites
+package br.com.gj.giphytest.features.favorites.usecases
 
 import androidx.lifecycle.LiveData
-import br.com.gj.giphytest.model.GifItem
+import br.com.gj.giphytest.features.common.model.GifItem
+import br.com.gj.giphytest.features.favorites.FavoritesLocalDataSource
 import io.reactivex.Observable
 
 class GetAllFavoritesGifUseCase(private val localDataSource: FavoritesLocalDataSource) {
